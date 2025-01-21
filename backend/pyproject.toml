@@ -2,6 +2,7 @@
 name = "backend"
 version = "0.1.0"
 description = ""
+package-mode = false
 authors = [
     {name = "Emmanuel Guefif",email = "eguefif@fastmail.com"}
 ]
