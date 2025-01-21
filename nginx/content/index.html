@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            width: 300px;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #007acc;
+        }
+        .form-container label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background: #007acc;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background: #005f99;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Create Account</h2>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button name="createAccount" id="createAccount" type="submit">Sign Up</button>
+        </form>
+    </div>
+</body>
+
+    <script>
+    async function sendForm(username, password) {
+        const body = JSON.stringify({username: username, password: password})
+    console.log(body)
+        const response = await fetch("http://127.0.0.1:8000/create_account/", {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: body
+        })
+        console.log(response);
+    }
+
+    document.addEventListener("DOMContentLoaded", (e) => {
+        let submit = document.getElementById("createAccount");
+        submit.addEventListener("click", (e) => {
+            e.preventDefault();
+            let username = document.getElementById("username").value
+            let password = document.getElementById("password").value
+            sendForm(username, password)
+        });
+    });
+    </script>
+</html>
