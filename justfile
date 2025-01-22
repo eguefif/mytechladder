@@ -5,5 +5,5 @@ web:
     cd nginx && docker compose up --build
 
 # Command to run the application using Poetry and Uvicorn
-run:
+backend:
     cd backend/backend && poetry run uvicorn main:app --reload

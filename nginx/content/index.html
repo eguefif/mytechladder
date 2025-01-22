@@ -73,7 +73,7 @@
     async function sendForm(username, password) {
         const body = JSON.stringify({username: username, password: password})
     console.log(body)
-        const response = await fetch("http://127.0.0.1:8000/create_account/", {
+        const response = await fetch("http://127.0.0.1:8000/token/", {
             method: "POST",
             headers: {"content-type": "application/json"},
             body: body
