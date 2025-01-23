@@ -7,15 +7,11 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 
 from passlib.context import CryptContext
 import jwt
-from jwt.exceptions import InvalidTokenError
 from sqlmodel import select
-from sql_engine import create_db_and_tables, SessionDep
-from account.model import Account
 from pydantic import BaseModel
 
-SECRET_KEY = "7d3d8c8b3d2abda9a269824b91925c815c1eb9f6326e0b9104fa040e3993c752"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+from sql_engine import create_db_and_tables, SessionDep
+from account.model import Account
 
 
 class Token(BaseModel):
@@ -34,7 +30,11 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     else:
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    settings = get_settings()
+    print(settings.model_config)
+    secret_key = settings.secret_key
+    algo_key = settings.algorithm
+    return jwt.encode(to_encode, secret_key, algorithm=algo_key)
 
 
 app = FastAPI()
@@ -104,7 +104,10 @@ async def login(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    settings = get_settings()
+    print(settings.model_config)
+    expire_minutes = settings.access_token_expire_minutes
+    access_token_expires = timedelta(minutes=expire_minutes)
     access_token = create_access_token(
         data={"sub": user_dict.username}, expires_delta=access_token_expires
     )
