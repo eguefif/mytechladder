@@ -36,9 +36,8 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     settings = get_settings()
-    print(settings.model_config)
-    secret_key = settings.secret_key
-    algo_key = settings.algorithm
+    secret_key = settings.SECRET_KEY
+    algo_key = settings.ALGORITHM
     return jwt.encode(to_encode, secret_key, algorithm=algo_key)
 
 
@@ -78,8 +77,7 @@ async def login(
             headers={"WWW-Authenticate": "Bearer"},
         )
     settings = get_settings()
-    print(settings.model_config)
-    expire_minutes = settings.access_token_expire_minutes
+    expire_minutes = settings.ACCESS_TOKEN_EXPIRE_MINUTES
     access_token_expires = timedelta(minutes=expire_minutes)
     access_token = create_access_token(
         data={"sub": user_dict.username}, expires_delta=access_token_expires

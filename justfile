@@ -1,5 +1,8 @@
 # Justfile
 
+list:
+    just -l
+
 # Command to build and run the services using Docker Compose
 web:
     cd nginx && docker compose up --build
