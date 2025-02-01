@@ -4,14 +4,16 @@ import SignupForm from '../components/SignupForm.vue'
 
 <template>
   <main>
-    <div class='signIn'>
+    <div class='form'>
       <SignupForm />
     </div>
   </main>
 </template>
 
 <style scoped>
-.login {
-  display: flex
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
