@@ -13,8 +13,9 @@ function login() {
 
 <template>
   <div>
-    <h1>Sign in</h1>
-    <input name="username" v-model="email" placeholder="Email">
+    <h1>Sign up</h1>
+    <input name="username" v-model="email" placeholder="username">
+    <input name="email" v-model="email" placeholder="email">
     <input name="password" v-model="password" placeholder="Password">
     <button @click="login">Login</button>
   </div>

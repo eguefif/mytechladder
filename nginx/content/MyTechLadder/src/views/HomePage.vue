@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import LoginForm from '../components/LoginForm.vue'
+import SignupForm from '../components/SignupForm.vue'
 </script>
 
 <template>
   <main>
-    <div class='login'>
-      <LoginForm />
+    <div class='signIn'>
+      <SignupForm />
     </div>
   </main>
 </template>
