@@ -1,6 +1,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
+from pydantic import BaseModel
 from sql_engine import create_db_and_tables
 from account import controllers as users
 import authentication
@@ -19,6 +20,7 @@ def on_startup():
 origins = [
     "http://127.0.0.1:8080",
     "http://127.0.0.1:8000",
+    "http://localhost:5173",
 ]
 
 app.add_middleware(
@@ -28,8 +30,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/")
-def read_root():
-    return {"message": "Hello, World"}
