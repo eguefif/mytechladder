@@ -11,9 +11,14 @@ import SignupForm from '../components/SignupForm.vue'
 </template>
 
 <style scoped>
-.form {
+main {
+  display: flex;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.form {
+  width: 350px;
 }
 </style>
