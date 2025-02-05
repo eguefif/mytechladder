@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlmodel import select
 
 from sql_engine import SessionDep
-from account.model import Account, AccountIn
+from account.model import Account
 
 from authentication import get_hash_password, oauth2_scheme
 
@@ -13,7 +13,7 @@ router = APIRouter()
 
 
 @router.post("/create_account/", tags=["users"])
-async def create_account(account: AccountIn, session: SessionDep) -> Account:
+async def create_account(account: Account, session: SessionDep) -> Account:
     print(account)
     hashed_password = get_hash_password(account.password)
     account.password = hashed_password

@@ -1,6 +1,7 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
+from pydantic import BaseModel
 from sql_engine import create_db_and_tables
 from account import controllers as users
 import authentication
@@ -14,6 +15,16 @@ app.include_router(authentication.router)
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
+
+
+class TestModel(BaseModel):
+    email: str
+
+
+@app.post("/test_post/")
+def test_post(value: TestModel):
+    print(value)
+    return "Hello, World"
 
 
 origins = [
