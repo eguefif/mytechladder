@@ -14,6 +14,7 @@ router = APIRouter()
 
 @router.post("/create_account/", tags=["users"])
 async def create_account(account: AccountIn, session: SessionDep) -> Account:
+    print(account)
     hashed_password = get_hash_password(account.password)
     account.password = hashed_password
     session.add(account)

@@ -1,12 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import type { Ref } from 'vue'
+import { postAccount } from '@/services/index'
+import type { Account } from '@/services/types'
 
 const email: Ref<string, string> = ref("")
 const password: Ref<string, string> = ref("")
+const username: Ref<string, string> = ref("")
 
-function login() {
-  console.log(`${email.value} - ${password.value}`)
+async function login() {
+  let account: Account = {
+    email: email.value,
+    username: username.value,
+    password: password.value
+  }
+  try {
+    let response = await postAccount(account);
+    console.log(response)
+  } catch (e) {
+    console.log(`error: ${e}`)
+  }
 }
 
 </script>
@@ -14,7 +27,7 @@ function login() {
 <template>
   <div class="signup">
     <span class="signupTitle">Sign up</span>
-    <input name="username" v-model="email" placeholder="username">
+    <input name="username" v-model="username" placeholder="username">
     <input name="email" v-model="email" placeholder="email">
     <input name="password" v-model="password" placeholder="Password">
     <button @click="login">Login</button>

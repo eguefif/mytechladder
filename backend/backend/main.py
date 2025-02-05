@@ -1,7 +1,6 @@
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI
 
-from pydantic import BaseModel
 from sql_engine import create_db_and_tables
 from account import controllers as users
 import authentication
@@ -21,6 +20,7 @@ origins = [
     "http://127.0.0.1:8080",
     "http://127.0.0.1:8000",
     "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 app.add_middleware(
