@@ -17,6 +17,9 @@ async function login() {
   try {
     let response = await postAccount(account);
     console.log(response)
+    if (response.status == 201) {
+      console.log("created")
+    }
   } catch (e) {
     console.log(`error: ${e}`)
   }

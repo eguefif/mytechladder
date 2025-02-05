@@ -21,12 +21,6 @@ class TestModel(BaseModel):
     email: str
 
 
-@app.post("/test_post/")
-def test_post(value: TestModel):
-    print(value)
-    return "Hello, World"
-
-
 origins = [
     "http://127.0.0.1:8080",
     "http://127.0.0.1:8000",

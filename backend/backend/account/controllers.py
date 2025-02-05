@@ -1,10 +1,10 @@
 from typing import Annotated
-from fastapi import APIRouter, Depends, Query, HTTPException
+from fastapi import APIRouter, Depends, Query, HTTPException, status
 
 from sqlmodel import select
 
 from sql_engine import SessionDep
-from account.model import Account
+from account.model import Account, AccountIn
 
 from authentication import get_hash_password, oauth2_scheme
 
@@ -13,14 +13,15 @@ router = APIRouter()
 
 
 @router.post("/create_account/", tags=["users"])
-async def create_account(account: Account, session: SessionDep) -> Account:
-    print(account)
+async def create_account(
+    account: AccountIn, session: SessionDep, status_code=status.HTTP_201_CREATED
+) -> Account:
     hashed_password = get_hash_password(account.password)
     account.password = hashed_password
     session.add(account)
     session.commit()
     session.refresh(account)
-    return account
+    return "Ok"
 
 
 @router.get("/users/", tags=["users"])
